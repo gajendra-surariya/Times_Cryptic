@@ -1,0 +1,23 @@
+{% extends "layout.html" %} {% load static %} {% block content %} {% block styles %}
+<link rel="stylesheet" href="{% static 'news-block.css' %}">
+<div class="detailed-news">
+    <div class="detail-header">
+        {{news.title}}
+    </div>
+<!--    <img src="https://source.unsplash.com/1200x500/?politics,sports">-->
+    <div class="detail-body">
+        <blockquote class="blockquote mb-0">
+            <p class="text-paragraph">{{news.text}}</p>
+            <footer class="blockquote-footer">{{news.author}} <cite title="Source Title">
+                {% if news.label %}
+               <span  style="margin-left:5px;" class="badge bg-warning text-dark">Untrusted</span>
+                {% else %}
+                <span style="margin-left:5px;" class="badge bg-info text-dark">Trusted</span>
+                {% endif %}</cite></footer>
+        </blockquote>
+    </div>
+</div>
+{% if request.user.username ==  news.author %}
+<a href ='{% url "del_news" news.id %}'><button class="btn btn-danger delete-btn-align " type="button">Remove</button></a>
+{% endif %}
+{% endblock %} {% endblock %}
